@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>КНП ХОР «ОКЛ» — Облік військовослужбовців</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<!-- ============================ LOGIN ============================ -->
+<section id="login">
+  <div class="login-visual">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo-white.png" alt="ОКЛ">
+      КНП ХОР «ОКЛ» — Облік пацієнтів
+    </div>
+    <div class="login-hero">
+      
+      <h1>Цифрова система для ефективного управління пацієнтами та процесами</h1>
+      
+    </div>
+    <div class="foot">
+      
+    </div>
+  </div>
+
+  <div class="login-form-wrap">
+    <div class="login-form">
+      <div class="login-logo">
+        <div class="login-mark">
+          <img src="assets/logo-white.png" alt="Логотип КНП ХОР ОКЛ">
+        </div>
+        <div class="t1">КНП ХОР «ОКЛ»</div>
+        <div class="t2">Облік пацієнтів</div>
+      </div>
+      <h2>Вхід / вибір ролі</h2>
+      <p class="sub">Оберіть свою роль для продовження</p>
+      <div class="role-grid">
+        <button class="role-card active" data-role="Адміністратор" onclick="pickRole(this)">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.6"/><circle cx="18" cy="6" r="3" fill="currentColor"/></svg>
+          Адміністратор
+        </button>
+        <button class="role-card" data-role="Лікар" onclick="pickRole(this)">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.6"/></svg>
+          Лікар
+        </button>
+      </div>
+      <div class="field">
+        <label>Прізвище <span class="req">*</span></label>
+        <div class="input-wrap">
+          <span class="lead"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c0-3.5 3.5-5.5 8-5.5s8 2 8 5.5" stroke="currentColor" stroke-width="1.6"/></svg></span>
+          <input class="inp" id="loginName" placeholder="Введіть ваше прізвище" value="">
+        </div>
+      </div>
+      <div class="field">
+        <label>Пароль</label>
+        <div class="input-wrap has-trail">
+          <span class="lead"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.6"/></svg></span>
+          <input class="inp" id="loginPass" type="password" placeholder="Введіть пароль" value="">
+          <button class="trail" onclick="togglePass('loginPass',this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg></button>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="doLogin()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="#fff" stroke-width="1.6"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#fff" stroke-width="1.6"/></svg>
+        Увійти
+      </button>
+     
+     <!-- <div style="margin-top:14px;padding:12px 14px;background:var(--color-surface-2);border-radius:10px;font-size:12px;color:var(--color-text-secondary);line-height:1.7">
+        <b style="color:var(--color-text-primary)">Тестові акаунти:</b><br>
+        Бойко / okl2026 — Адміністратор<br>
+        Лікар / likar2026 — Лікар<br>
+        Перегляд / view2026 — лише перегляд
+      </div>-->
+    </div>
+  </div>
+</section>
+
+<!-- ============================ APP ============================ -->
+<div id="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="side-brand">
+      <div class="mark"><img src="assets/logo-white.png" alt="ОКЛ"></div>
+      <div><div class="t1">КНП ХОР «ОКЛ»</div><div class="t2">Облік пацієнтів</div></div>
+    </div>
+    <nav class="nav">
+      <a class="nav-item active" data-view="patients" onclick="go('patients')">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M3 20c0-3 2.7-4.5 6-4.5S15 17 15 20" stroke="currentColor" stroke-width="1.6"/><path d="M16 11h5M18.5 8.5v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Пацієнти
+      </a>
+      <a class="nav-item" data-view="operations" onclick="go('operations')">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Операції
+      </a>
+      <a class="nav-item" data-view="report" onclick="go('report')">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Звіт 08:00
+      </a>
+      <a class="nav-item" data-view="journal" onclick="go('journal')">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 9h6M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Журнал за добу
+      </a>
+      <a class="nav-item" data-view="statistics" onclick="go('statistics')">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 20V4M4 20h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M8 16v-4M12 16v-8M16 16v-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Статистика
+      </a>
+      <a class="nav-item" data-view="settings" onclick="go('settings')">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Налаштування
+      </a>
+    </nav>
+
+    <div class="side-user">
+      <div class="avatar">СБ</div>
+      <div><div class="nm">Світлана Бойко</div><div class="rl" id="sideRole">Адміністратор</div></div>
+    </div>
+    <button class="side-logout" onclick="logout()">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M15 17l5-5-5-5M20 12H9M9 4H6a2 2 0 00-2 2v12a2 2 0 002 2h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Вийти
+    </button>
+  </aside>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="top-logo"><div class="mark"><img src="assets/logo-white.png" alt="ОКЛ"></div>OKL Hospital</div>
+    <div class="top-search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input placeholder="Пошук пацієнта..." oninput="topSearch(this.value)">
+    </div>
+    <div class="top-right">
+      <div class="notif-wrap">
+        <button class="icon-btn notif" onclick="toggleNotif(event)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M6 9a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6z" stroke="currentColor" stroke-width="1.6"/><path d="M10 19a2 2 0 004 0" stroke="currentColor" stroke-width="1.6"/></svg><span class="dot" id="notifDot">3</span></button>
+        <div class="notif-panel" id="notifPanel">
+          <div class="notif-head">Сповіщення <button onclick="clearNotif()">Позначити прочитаним</button></div>
+          <div class="notif-list" id="notifList"></div>
+        </div>
+      </div>
+      <button class="top-user">
+        <div class="avatar" style="width:30px;height:30px;font-size:11px">СБ</div>
+        <div class="txt"><div class="nm">Адміністратор</div><div class="rl">Системний доступ</div></div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="color:var(--color-text-tertiary)"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ===== PATIENTS ===== -->
+    <section class="view active" id="view-patients">
+      <div class="page-head">
+        <div>
+          <div class="breadcrumb">Пацієнти <span>/</span> <span class="cur">Реєстр пацієнтів</span></div>
+          <h1>Реєстр пацієнтів</h1>
+          <div class="updated"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 11a8 8 0 10-2.3 5.6M20 5v6h-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Останнє оновлення: сьогодні, 13:23</div>
+        </div>
+        <div class="page-actions">
+          <span class="date-pill"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 12.08.2026 – 18.08.2026</span>
+          <button class="btn btn-ghost"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 5h18l-7 8v5l-4 2v-7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg> Фільтри</button>
+          <button class="btn btn-primary" onclick="openModal('m-add')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/></svg> Додати пацієнта</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid" id="kpiPatients"></div>
+
+      <div class="toolbar">
+        <div class="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input id="ptSearch" placeholder="Пошук за ПІБ, діагнозом, відділенням..." oninput="renderPatients()">
+        </div>
+        <div class="selectw"><select id="fCat" onchange="renderPatients()"><option value="">Категорія: Усі</option><option>ЗСУ</option><option>НГУ</option><option>СБУ</option><option>ДПСУ</option><option>ДСНС</option><option>Поліція</option><option>Інші</option></select></div>
+        <div class="selectw"><select id="fDept" onchange="renderPatients()"><option value="">Відділення: Усі</option><option>Хірургія</option><option>Травматологія</option><option>Неврологія</option><option>Кардіологія</option><option>Терапія</option></select></div>
+        <div class="selectw"><select id="fState" onchange="renderPatients()"><option value="">Стан: Усі</option><option>Стабільний</option><option>Легкий</option><option>Середній</option><option>Важкий</option></select></div>
+        <button class="btn btn-ghost btn-sm"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 5h18l-7 8v5l-4 2v-7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg> Ще фільтри</button>
+      </div>
+
+      <div class="table-wrap">
+        <div class="table-scroll data-desktop">
+          <table class="data">
+            <thead><tr>
+              <th>Пацієнт</th><th>Відділення</th><th>Діагноз</th><th>Кат.</th><th>Дата госп.</th>
+              <th>Ліжко-дні</th><th>Тріаж / Стан</th><th>Евакуація</th><th>Свід.</th><th>З полону</th><th style="text-align:right">Дії</th>
+            </tr></thead>
+            <tbody id="ptBody"></tbody>
+          </table>
+        </div>
+        <div class="pt-cards" id="ptCards"></div>
+        <div class="pagination">
+          <span class="info" id="ptInfo"></span>
+          <div class="pager">
+            <button>←</button><button class="active">1</button><button>2</button><button>3</button>
+            <span class="dots">…</span><button>27</button><button>→</button>
+          </div>
+          <div class="selectw" style="margin-left:8px"><select><option>20 / сторінка</option><option>50 / сторінка</option></select></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== OPERATIONS ===== -->
+    <section class="view" id="view-operations">
+      <div class="page-head">
+        <div>
+          <div class="breadcrumb">Операції <span>/</span> <span class="cur">Операції за добу</span></div>
+          <h1>Операції за добу</h1>
+          <div class="updated">Введіть та збережіть дані про виконані операції за обрану дату.</div>
+        </div>
+        <div class="page-actions">
+          <span class="date-pill"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 18.08.2026</span>
+          <button class="btn btn-ghost" onclick="toast('info','Дані оновлено')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 11a8 8 0 10-2.3 5.6M20 5v6h-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Оновити</button>
+          <button class="btn btn-primary" onclick="saveOps()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 3h11l3 3v15H5z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 3v5h6" stroke="#fff" stroke-width="1.6"/></svg> Зберегти дані</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid four" id="kpiOps"></div>
+
+      <div class="table-wrap">
+        <div class="table-scroll">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th rowspan="2">Відділення</th><th rowspan="2">Прооперованих<br><small style="color:var(--color-text-tertiary);font-weight:400">осіб</small></th>
+                <th rowspan="2">Втручань всього<br><small style="color:var(--color-text-tertiary);font-weight:400">кількість</small></th>
+                <th colspan="2" class="grp">Складні</th><th colspan="2" class="grp">Менш складні</th><th colspan="2" class="grp">Без анестезії</th><th rowspan="2"></th>
+              </tr>
+              <tr>
+                <th class="grp">К-сть</th><th>Код</th><th class="grp">К-сть</th><th>Код</th><th class="grp">К-сть</th><th>Код</th>
+              </tr>
+            </thead>
+            <tbody id="opsBody"></tbody>
+            <tfoot><tr id="opsFoot"></tr></tfoot>
+          </table>
+        </div>
+        <div class="grid-note">Коди: A — Загальна анестезія, B — Регіональна анестезія, C — Місцева анестезія, — Без анестезії</div>
+      </div>
+    </section>
+
+    <!-- ===== REPORT ===== -->
+    <section class="view" id="view-report">
+      <div class="page-head">
+        <div>
+          <div class="breadcrumb">Пацієнти <span>/</span> <span class="cur">Звіт 08:00</span></div>
+          <h1>Звіт 08:00</h1>
+          <div class="updated"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Щоденний звіт станом на 08:00</div>
+        </div>
+        <div class="page-actions">
+          <span class="date-pill"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 18.08.2026</span>
+          <button class="btn btn-ghost" onclick="toast('info','Звіт оновлено')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 11a8 8 0 10-2.3 5.6M20 5v6h-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Оновити</button>
+          <button class="btn btn-ghost" onclick="toast('success','CSV експортовано')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3v12M8 11l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 19h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Експорт CSV</button>
+          <button class="btn btn-primary" onclick="openDrawer()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/></svg> Внести дані</button>
+        </div>
+      </div>
+
+      <div class="tabs" id="reportTabs">
+        <button class="tab active" data-scope="mil" onclick="switchReport('mil')">Військові</button>
+        <button class="tab" data-scope="all" onclick="switchReport('all')">Усі</button>
+      </div>
+
+      <div class="kpi-grid six" id="kpiReport"></div>
+
+      <div class="table-wrap">
+        <div class="sec-title" id="repSecTitle">Показники по відділеннях — військові</div>
+        <div class="table-scroll">
+          <table class="grid">
+            <thead><tr id="repHead"></tr></thead>
+            <tbody id="repBody"></tbody>
+            <tfoot><tr id="repFoot"></tr></tfoot>
+          </table>
+        </div>
+        <div class="grid-note">* Дані сформовано станом на 18.08.2026, 08:00</div>
+      </div>
+    </section>
+
+    <!-- ===== JOURNAL (добове зведення з фото) ===== -->
+    <section class="view" id="view-journal">
+      <div class="page-head">
+        <div>
+          <div class="breadcrumb">Журнал <span>/</span> <span class="cur">Зведення за добу</span></div>
+          <h1>Журнал за добу</h1>
+          <div class="updated">Зведення по відділеннях. Заповніть показники за обрану дату.</div>
+        </div>
+        <div class="page-actions">
+          <span class="date-pill"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> <input type="date" value="2026-08-16" style="border:none;background:none;font-weight:600;font-size:13.5px"></span>
+          <button class="btn btn-ghost" onclick="jClear()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M6 7l1 13h10l1-13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Очистити</button>
+          <button class="btn btn-primary" onclick="saveJournal()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 3h11l3 3v15H5z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 3v5h6" stroke="#fff" stroke-width="1.6"/></svg> Зберегти</button>
+        </div>
+      </div>
+
+      <!-- Верхні підсумки за добу -->
+      <div class="card" style="padding:18px;margin-bottom:16px">
+        <div class="sec-title" style="padding:0 0 14px">Підсумки надходження за добу</div>
+        <div class="form-grid" style="grid-template-columns:repeat(4,1fr)">
+          <div class="field"><label>Всього надійшло</label><input class="inp auto" id="sumTotal" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Ургентно</label><input class="inp auto" id="sumUrgent" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Планово</label><input class="inp auto" id="sumPlan" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Померло</label><input class="inp auto" id="sumDied" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Амбулаторних</label><input class="inp auto" id="sumAmb" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Вибухових</label><input class="inp auto" id="sumBlast" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Військових</label><input class="inp auto" id="sumMil" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Цивільних</label><input class="inp auto" id="sumCiv" type="number" min="0" placeholder="0"></div>
+        </div>
+        <div style="font-size:12px;color:var(--color-text-secondary);margin-top:10px">Заповнюється автоматично з реєстру «Пацієнти» за сьогоднішню дату. За потреби скоригуйте вручну.</div>
+      </div>
+
+      <!-- Таблиця по відділеннях -->
+      <div class="table-wrap">
+        <div class="sec-title">Показники по відділеннях</div>
+        <div class="table-scroll">
+          <table class="grid">
+            <thead><tr>
+              <th style="min-width:190px">Відділення</th><th>Перебувало</th><th>Надійшло</th><th>Вибуло</th><th>Померло</th>
+              <th>Перебуває</th><th>Лежачіх</th><th>Військові</th><th>Вибухові</th><th>ВІТ</th>
+            </tr></thead>
+            <tbody id="jBody"></tbody>
+            <tfoot><tr id="jFoot"></tr></tfoot>
+          </table>
+        </div>
+        <div class="grid-note">Уся таблиця <b>заповнюється автоматично з реєстру «Пацієнти»</b> — перебування, рух за добу, ВІТ (пацієнти зі станом «Вкрай важкий») та підсумкові рядки «Всього по РПЦ / ОКЛ». Виділені клітинки можна за потреби скоригувати вручну; підсумкові рядки перераховуються самі.</div>
+      </div>
+
+      <!-- Нижні поля -->
+      <div class="card" style="padding:18px;margin-top:16px">
+        <div class="sec-title" style="padding:0 0 14px">Додаткові показники за добу</div>
+        <div class="form-grid" style="grid-template-columns:repeat(4,1fr)">
+          <div class="field"><label>Інсультів за добу</label><input class="inp" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>З них ТЛТ</label><input class="inp" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Інфарктів за добу</label><input class="inp" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>З них стентовано</label><input class="inp" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Пологи</label><input class="inp" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>З них кесарів розтин</label><input class="inp" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Хлопчиків</label><input class="inp" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Дівчаток</label><input class="inp" type="number" min="0" placeholder="0"></div>
+          <div class="field full"><label>Померлі (ПІБ, діагноз)</label><textarea class="inp" placeholder="Напр.: Моргулець (ПАД), Дірчук (ТЕЛА), Кириленко (ГІМ)…"></textarea></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STATISTICS ===== -->
+    <section class="view" id="view-statistics">
+      <div class="page-head">
+        <div>
+          <div class="breadcrumb">Огляд <span>/</span> <span class="cur">Статистика</span></div>
+          <h1>Статистика</h1>
+          <div class="updated">Розподіл пацієнтів за категоріями та статистика виписок.</div>
+        </div>
+        <div class="page-actions">
+          <div class="selectw"><select onchange="renderStats()" id="stDept"><option value="">Всі відділення</option><option>Хірургія</option><option>Травматологія</option><option>Неврологія</option><option>Кардіологія</option><option>Терапія</option></select></div>
+          <div class="selectw"><select onchange="renderStats()" id="stStatus"><option value="">Усі</option><option>На лікуванні</option><option>Виписані</option></select></div>
+        </div>
+      </div>
+
+      <div class="kpi-grid four" id="kpiStats"></div>
+
+      <div class="stats-two">
+        <div class="card" style="padding:20px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <div class="sec-title" style="padding:0">Розподіл за категоріями</div>
+            <span class="chip gray" id="catTotal">—</span>
+          </div>
+          <div class="stat-bars" id="catBars"></div>
+        </div>
+        <div class="card" style="padding:20px">
+          <div class="sec-title" style="padding:0 0 16px">Військові / Цивільні</div>
+          <div class="donut-wrap">
+            <svg width="140" height="140" viewBox="0 0 42 42" id="mcDonut"></svg>
+            <div class="legend" id="mcLegend"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <div class="sec-title" style="padding:0">Статистика виписок</div>
+          <button class="btn btn-ghost btn-sm" onclick="toast('success','CSV експортовано')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3v12M8 11l4 4 4-4M4 19h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Експорт</button>
+        </div>
+        <div class="stat-bars" id="dischargeBars"></div>
+      </div>
+    </section>
+
+    <!-- ===== SETTINGS ===== -->
+    <section class="view" id="view-settings">
+      <!-- GATE -->
+      <div id="settingsGate">
+        <div class="gate">
+          <div class="lock"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2.5" stroke="#0D9488" stroke-width="1.8"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#0D9488" stroke-width="1.8"/><circle cx="12" cy="15.5" r="1.5" fill="#0D9488"/></svg></div>
+          <h3>Захищена зона</h3>
+          <p>Введіть пароль розробника для доступу до системних налаштувань</p>
+          <div class="field">
+            <label>Пароль розробника</label>
+            <div class="input-wrap has-trail">
+              <span class="lead"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.6"/></svg></span>
+              <input class="inp" id="gatePass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')openSettings()">
+              <button class="trail" onclick="togglePass('gatePass',this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg></button>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="openSettings()">Увійти</button>
+          <div class="note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.6"/></svg> Доступ дозволено лише авторизованим адміністраторам</div>
+        </div>
+      </div>
+
+      <!-- PANEL -->
+      <div id="settingsPanel" style="display:none">
+        <div class="page-head">
+          <div>
+            <h1>Налаштування</h1>
+            <div class="updated">Системні налаштування та керування безпекою</div>
+          </div>
+          <div class="page-actions"><span class="sys-ok"><span class="d"></span> Усі системи працюють</span></div>
+        </div>
+
+        <div class="settings-grid">
+          <div class="panel">
+            <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6c0-1.5 3.5-2.5 8-2.5S20 4.5 20 6M4 6v12c0 1.5 3.5 2.5 8 2.5s8-1 8-2.5V6M4 12c0 1.5 3.5 2.5 8 2.5s8-1 8-2.5" stroke="currentColor" stroke-width="1.6"/></svg> Статус системи</h4>
+            <div class="row"><span class="k">База даних</span><span class="status-ok">Працює</span></div>
+            <div class="row"><span class="k">Firebase API</span><span class="status-ok">Працює</span></div>
+            <div class="row"><span class="k">Cloud Functions</span><span class="status-ok">Працює</span></div>
+            <div class="row"><span class="k">Файлове сховище</span><span class="status-ok">Працює</span></div>
+            <div class="row"><span class="k">Email сервіс</span><span class="status-ok">Працює</span></div>
+          </div>
+          <div class="panel">
+            <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.6"/></svg> Останній вхід адміністратора</h4>
+            <div class="row"><span class="k">Користувач</span><span class="v">Світлана Бойко</span></div>
+            <div class="row"><span class="k">IP-адреса</span><span class="v">192.168.1.27</span></div>
+            <div class="row"><span class="k">Пристрій</span><span class="v">Chrome 126 / macOS</span></div>
+            <div class="row"><span class="k">Час входу</span><span class="v">18.08.2026, 13:21</span></div>
+          </div>
+          <div class="panel">
+            <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M3 19c0-3 2.7-4.5 6-4.5S15 16 15 19" stroke="currentColor" stroke-width="1.6"/></svg> Ролі та дозволи</h4>
+            <div class="row"><span class="k">Адміністратори</span><span class="v">5</span></div>
+            <div class="row"><span class="k">Лікарі</span><span class="v">24</span></div>
+            <div class="row"><span class="k">Медсестри</span><span class="v">18</span></div>
+            <div class="row"><span class="k">Реєстратура</span><span class="v">8</span></div>
+          </div>
+          <div class="panel">
+            <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h7l-1 8 10-12h-7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg> Cloud Functions</h4>
+            <div class="row"><span class="k">Статус</span><span class="status-ok">Активно</span></div>
+            <div class="row"><span class="k">Версія</span><span class="v">v1.8.3</span></div>
+            <div class="row"><span class="k">Розгортання</span><span class="v">18.08.2026</span></div>
+            <div class="row"><span class="k">Регіон</span><span class="v">europe-west1</span></div>
+          </div>
+        </div>
+
+        <div class="settings-grid" style="grid-template-columns:1.4fr 1fr">
+          <div class="panel audit-log">
+            <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Журнал аудиту</h4>
+            <table>
+              <thead><tr><th>Час</th><th>Користувач</th><th>Дія</th><th>IP-адреса</th></tr></thead>
+              <tbody>
+                <tr><td>18.08 13:21</td><td>Світлана Бойко</td><td>Оновлення налаштувань</td><td>192.168.1.27</td></tr>
+                <tr><td>18.08 10:45</td><td>Світлана Бойко</td><td>Розгортання Cloud Function</td><td>192.168.1.27</td></tr>
+                <tr><td>17.08 18:03</td><td>Андрій Коваленко</td><td>Зміна ролі користувача</td><td>192.168.1.45</td></tr>
+                <tr><td>17.08 09:12</td><td>Світлана Бойко</td><td>Очищення кешу</td><td>192.168.1.27</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="danger-zone">
+            <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9v4M12 16v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> Очищення бази <span style="font-weight:600;font-size:12px">(небезпечна дія)</span></h4>
+            <p>Ця дія незворотна та призведе до повного видалення всіх даних системи. Будь ласка, створіть резервну копію перед виконанням.</p>
+            <input class="inp" id="wipeConfirm" placeholder="Введіть: ОЧИСТИТИ" oninput="checkWipe(this.value)">
+            <button class="btn btn-danger" id="wipeBtn" disabled onclick="wipeDB()">ОЧИСТИТИ БАЗУ ДАНИХ</button>
+            <div class="note" style="margin-top:12px;color:#B91C1C"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg> Доступно лише в тестовому середовищі</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============================ MOBILE BOTTOM NAV ============================ -->
+<nav class="bottom-nav" id="bottomNav">
+  <a class="active" data-view="patients" onclick="go('patients')"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M3 20c0-3 2.7-4.5 6-4.5S15 17 15 20" stroke="currentColor" stroke-width="1.6"/></svg>Пацієнти</a>
+  <a data-view="operations" onclick="go('operations')"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Операції</a>
+  <a data-view="report" onclick="go('report')"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h8M8 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Звіт 08:00</a>
+  <a data-view="journal" onclick="go('journal')"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 9h6M9 13h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Журнал</a>
+  <a onclick="openMore()"><svg viewBox="0 0 24 24" fill="none"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg>Ще</a>
+</nav>
+
+<!-- Mobile full menu sheet -->
+<div class="overlay" id="moreOverlay" onclick="closeMore()" style="background:rgba(15,23,42,.35);align-items:flex-end;z-index:59"></div>
+<div class="more-sheet" id="moreSheet">
+  <div class="more-grip"></div>
+  <a data-view="patients" onclick="goMore('patients')"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M3 20c0-3 2.7-4.5 6-4.5S15 17 15 20" stroke="currentColor" stroke-width="1.6"/></svg>Пацієнти</a>
+  <a data-view="operations" onclick="goMore('operations')"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Операції</a>
+  <a data-view="report" onclick="goMore('report')"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h8M8 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Звіт 08:00</a>
+  <a data-view="journal" onclick="goMore('journal')"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 9h6M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Журнал за добу</a>
+  <a data-view="statistics" onclick="goMore('statistics')"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V4M4 20h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M8 16v-4M12 16v-8M16 16v-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Статистика</a>
+  <a data-view="settings" onclick="goMore('settings')"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2M12 19v2M4 12H2M22 12h-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Налаштування</a>
+  <a class="danger" onclick="closeMore();logout()"><svg viewBox="0 0 24 24" fill="none"><path d="M15 17l5-5-5-5M20 12H9M9 4H6a2 2 0 00-2 2v12a2 2 0 002 2h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Вийти</a>
+</div>
+
+<!-- ============================ MODALS ============================ -->
+<!-- ADD PATIENT -->
+<div class="overlay" id="m-add">
+  <div class="modal">
+    <div class="modal-head"><div><h3>Новий пацієнт</h3><div class="sub">Додавання нового пацієнта до реєстру</div></div><button class="modal-close" onclick="closeModal('m-add')">✕</button></div>
+    <div class="modal-body">
+      <label style="display:block;font-size:13px;font-weight:600;margin-bottom:10px">Тип пацієнта <span class="req">*</span></label>
+      <div class="seg" id="ptType">
+        <button class="active" data-type="mil" onclick="setPtType('mil')">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 8v4M10 10h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Військовий
+        </button>
+        <button data-type="civ" onclick="setPtType('civ')">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M5 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5" stroke="currentColor" stroke-width="1.6"/></svg>
+          Цивільний
+        </button>
+      </div>
+      <div class="form-grid">
+        <div class="field full"><label>ПІБ пацієнта <span class="req">*</span></label><input class="inp" id="addName" placeholder="Прізвище, ім'я, по батькові"></div>
+        <div class="selfield field" id="catMil"><label>Категорія <span class="req">*</span></label><select class="sel" id="addCatMil"><option value="">Оберіть категорію</option><option>ЗСУ</option><option>НГУ</option><option>СБУ</option><option>ДСНС</option><option>Поліція</option><option>ДПСУ</option><option>Інші</option></select></div>
+        <div class="selfield field" id="catCiv" style="display:none"><label>Категорія <span class="req">*</span></label><select class="sel" id="addCatCiv"><option value="">Оберіть категорію</option><option>Амбулаторно</option><option>Ургентно</option><option>Планово</option><option>Вибухові</option></select></div>
+        <div class="selfield field"><label>Тріаж <span class="req">*</span></label><select class="sel" id="addTriage"><option value="">Оберіть тріаж</option><option>Легкий</option><option>Середній</option><option>Важкий</option><option>Вкрай важкий</option></select></div>
+        <div class="selfield field"><label>Відділення <span class="req">*</span></label><select class="sel" id="addDept"><option value="">Оберіть відділення</option><option>Хірургія</option><option>Травматологія</option><option>Неврологія</option><option>Кардіологія</option><option>Терапія</option><option>Нейрохірургія</option><option>Офтальмологія</option></select></div>
+        <div class="field"><label>Дата госпіталізації <span class="req">*</span></label><input class="inp" type="date" id="addDate" value="2026-08-18"></div>
+        <div class="field full"><label>Діагноз (попередній)</label><textarea class="inp" id="addDiag" placeholder="Введіть діагноз"></textarea></div>
+        <div class="selfield field"><label>Вид ураження <span class="req">*</span></label><select class="sel" id="addInjury"><option value="">Оберіть тип</option><option>Поранений</option><option>Травмований</option><option>Хворий</option></select></div>
+        <div class="selfield field"><label>Евакуаційна категорія</label><select class="sel" id="addEvac"><option value="">— не визначено —</option><option>Сидячий</option><option>Лежачий</option></select></div>
+        <div class="field milOnly"><label>Оформлення свідоцтва</label><label class="toggle"><input type="checkbox" id="addCert"><span class="track"></span><span style="font-size:13px;color:var(--color-text-secondary)">Так / Ні</span></label></div>
+        <div class="field milOnly"><label>Звільнений з полону</label><label class="toggle"><input type="checkbox" id="addPow"><span class="track"></span><span style="font-size:13px;color:var(--color-text-secondary)">Так / Ні</span></label></div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('m-add')">Скасувати</button><button class="btn btn-primary" onclick="savePatient()">Зберегти</button></div>
+  </div>
+</div>
+
+<!-- EDIT PATIENT -->
+<div class="overlay" id="m-edit">
+  <div class="modal">
+    <div class="modal-head"><div><h3>Редагування пацієнта</h3><div class="sub">Оновлення даних пацієнта</div></div><button class="modal-close" onclick="closeModal('m-edit')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="editId">
+      <div class="form-grid">
+        <div class="field full"><label>ПІБ пацієнта</label><input class="inp" id="editName" value=""></div>
+        <div class="selfield field"><label>Категорія <span class="req">*</span></label><select class="sel" id="editCat"><option>ЗСУ</option><option>НГУ</option><option>СБУ</option><option>ДСНС</option><option>Поліція</option><option>ДПСУ</option><option>Інші</option><option>Амбулаторно</option><option>Ургентно</option><option>Планово</option><option>Вибухові</option></select></div>
+        <div class="selfield field"><label>Тріаж <span class="req">*</span></label><select class="sel" id="editTriage"><option>Легкий</option><option>Середній</option><option>Важкий</option><option>Вкрай важкий</option><option>Стабільний</option></select></div>
+        <div class="selfield field"><label>Відділення <span class="req">*</span></label><select class="sel" id="editDept"><option>Хірургія</option><option>Травматологія</option><option>Неврологія</option><option>Кардіологія</option><option>Терапія</option><option>Нейрохірургія</option><option>Офтальмологія</option></select></div>
+        <div class="field"><label>Дата госпіталізації <span class="req">*</span></label><input class="inp" type="date" id="editDate" value="2026-08-12"></div>
+        <div class="field full"><label>Діагноз (попередній)</label><textarea class="inp" id="editDiag"></textarea></div>
+        <div class="selfield field"><label>Евак. категорія</label><select class="sel" id="editEvac"><option>Лежачий</option><option>Сидячий</option></select></div>
+        <div class="field" id="editCertField"><label>Оформлення свідоцтва</label><label class="toggle"><input type="checkbox" id="editCert"><span class="track"></span></label></div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('m-edit')">Скасувати</button><button class="btn btn-primary" onclick="saveEdit()">Зберегти</button></div>
+  </div>
+</div>
+
+<!-- DISCHARGE -->
+<div class="overlay" id="m-discharge">
+  <div class="modal md">
+    <div class="modal-head"><div><h3>Виписка пацієнта</h3><div class="sub" id="dischargeName">Петренко Максим Ігорович</div></div><button class="modal-close" onclick="closeModal('m-discharge')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="dischargeId">
+      <label style="display:block;font-size:13px;font-weight:600;margin-bottom:12px">Тип виписки <span class="req">*</span></label>
+      <div class="select-cards" id="dischargeCards">
+        <button class="select-card active" onclick="pickDischarge(this,false)"><span class="sic">🏠</span> Виписаний додому</button>
+        <button class="select-card" onclick="pickDischarge(this,false)"><span class="sic">🌿</span> Відпустка</button>
+        <button class="select-card" onclick="pickDischarge(this,false)"><span class="sic">🪖</span> До частини</button>
+        <button class="select-card" onclick="pickDischarge(this,false)"><span class="sic">🚑</span> Евакуйований</button>
+        <button class="select-card" onclick="pickDischarge(this,false)"><span class="sic">🏖️</span> Санаторне лікування</button>
+        <button class="select-card" onclick="pickDischarge(this,false)"><span class="sic">🚫</span> Порушення режиму</button>
+        <button class="select-card danger" onclick="pickDischarge(this,true)"><span class="sic">✝️</span> Помер</button>
+      </div>
+      <div class="form-grid" style="margin-top:20px">
+        <div class="field"><label>Дата виписки <span class="req">*</span></label><input class="inp" type="date" value="2026-08-18"></div>
+        <div class="field" id="deathTimeField" style="display:none"><label>Час смерті</label><input class="inp" type="time"></div>
+        <div class="field full"><label>Примітка</label><textarea class="inp" placeholder="Додайте примітку за потреби"></textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('m-discharge')">Скасувати</button><button class="btn btn-primary" onclick="saveDischarge()">Оформити виписку</button></div>
+  </div>
+</div>
+
+<!-- DUPLICATES -->
+<div class="overlay" id="m-dupe">
+  <div class="modal sm">
+    <div class="modal-head"><div><h3>Перевірка дублів</h3><div class="sub">Пошук можливих дублікатів пацієнта</div></div><button class="modal-close" onclick="closeModal('m-dupe')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="field full"><label>ПІБ пацієнта</label><input class="inp" value="Іваненко Олександр Сергійович"></div>
+        <div class="field full"><label>Дата народження</label><input class="inp" type="date" value="1987-05-04"></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin:8px 0 18px" onclick="showDupes()">Запустити пошук</button>
+      <div id="dupeResults" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><b style="font-size:14px">Можливі дублікати</b><span class="chip gray">2</span></div>
+        <div class="card" style="padding:14px;margin-bottom:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <div><div style="font-weight:600">Іваненко Олександр Сергійович</div><div style="font-size:12px;color:var(--color-text-secondary)">№ 230479 · 04.05.1987 · Травматологія</div></div>
+            <div style="display:flex;gap:8px;align-items:center"><span class="chip green"><span class="dot"></span>На лікуванні</span><button class="btn btn-ghost btn-sm">Переглянути</button></div>
+          </div>
+        </div>
+        <div class="card" style="padding:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <div><div style="font-weight:600">Іваненко Олександр С.</div><div style="font-size:12px;color:var(--color-text-secondary)">№ 230801 · Неврологія</div></div>
+            <div style="display:flex;gap:8px;align-items:center"><span class="chip gray">Виписаний</span><button class="btn btn-ghost btn-sm">Переглянути</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('m-dupe')">Закрити</button></div>
+  </div>
+</div>
+
+<!-- DRAWER: free beds -->
+<div class="overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="bedsDrawer">
+  <div class="modal-head"><div><h3>Внести вільні ліжка</h3><div class="sub">18.08.2026, 08:00</div></div><button class="modal-close" onclick="closeDrawer()">✕</button></div>
+  <div class="drawer-body">
+    <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:16px">Оновіть кількість вільних ліжок по відділеннях.</p>
+    <div id="bedsRows"></div>
+  </div>
+  <div class="drawer-total"><span>Разом вільних ліжок:</span><b id="bedsTotal">112</b></div>
+  <div class="modal-foot"><button class="btn btn-ghost" onclick="closeDrawer()">Скасувати</button><button class="btn btn-primary" onclick="saveBeds()">Зберегти</button></div>
+</aside>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+<!-- CONFIRM DIALOG -->
+<div class="overlay" id="m-confirm">
+  <div class="modal sm">
+    <div class="confirm-body">
+      <div class="confirm-ic danger" id="confirmIc"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M6 7l1 13h10l1-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3 id="confirmTitle">Підтвердьте дію</h3>
+      <p id="confirmMsg">Ви впевнені?</p>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('m-confirm')">Скасувати</button><button class="btn btn-danger" id="confirmBtn">Підтвердити</button></div>
+  </div>
+</div>
+
+<!-- VIEW PATIENT -->
+<div class="overlay" id="m-view">
+  <div class="modal sm">
+    <div class="modal-head"><div><h3>Картка пацієнта</h3><div class="sub" id="viewSub"></div></div><button class="modal-close" onclick="closeModal('m-view')">✕</button></div>
+    <div class="modal-body"><div class="view-rows" id="viewRows"></div></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('m-view')">Закрити</button><button class="btn btn-primary" id="viewEditBtn">Редагувати</button></div>
+  </div>
+</div>
+
+<!-- ENV badge -->
+<div class="env-badge"><span class="d"></span> Тестова версія · локальні дані (localStorage)</div>
+
+<script src="assets/store.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
